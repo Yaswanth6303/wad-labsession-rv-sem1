@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Percentage Calculator</title>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <h3>Percentage Calculator</h3>
+
+    <form id="marksForm">
+      <input type="number" id="m1" placeholder="Subject 1" required />
+      <input type="number" id="m2" placeholder="Subject 2" required />
+      <input type="number" id="m3" placeholder="Subject 3" required />
+      <input type="number" id="m4" placeholder="Subject 4" required />
+      <input type="number" id="m5" placeholder="Subject 5" required />
+
+      <button type="submit">Calculate</button>
+    </form>
+
+    <h4 id="result"></h4>
+
+    <script>
+      const form = document.getElementById("marksForm");
+
+      form.onsubmit = function (e) {
+        e.preventDefault();
+
+        let marks = [m1.value, m2.value, m3.value, m4.value, m5.value];
+
+        for (let i = 0; i < marks.length; i++) {
+          if (marks[i] < 1 || marks[i] > 100) {
+            alert("Marks must be between 1 and 100");
+            return;
+          }
+        }
+
+        let total = 0;
+        for (let i = 0; i < marks.length; i++) {
+          total += Number(marks[i]);
+        }
+
+        let percentage = total / 5;
+
+        document.getElementById("result").innerHTML =
+          "Total Marks: " + total + "<br>Percentage: " + percentage + "%";
+      };
+    </script>
+  </body>
+</html>
