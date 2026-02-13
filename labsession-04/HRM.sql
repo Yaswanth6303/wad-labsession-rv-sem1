@@ -248,13 +248,16 @@ WHERE d.essn IN (
     ) >= 1000000
 );
 
-SELECT d.dependent_name
-FROM dependent d
-JOIN works_on w ON d.essn = w.essn
-JOIN project p ON w.pno = p.pno
-WHERE p.end_date < CURDATE()
-GROUP BY d.essn
-HAVING SUM(p.budget) >= 1000000;
+SELECT dependent_name
+FROM dependent
+WHERE essn IN (
+    SELECT w.essn
+    FROM works_on w
+    JOIN project p ON w.pno = p.pno
+    WHERE p.end_date < CURDATE()
+    GROUP BY w.essn
+    HAVING SUM(p.budget) >= 1000000
+);
 
 -- Query 6
 -- List the department and employee details whose project is in more than one city.
